@@ -417,7 +417,7 @@ def make_eval_data_loader(test_dataset_str, batch_size, num_workers, metric_type
         dataset=test_dataset,
         batch_size=batch_size,
         num_workers=num_workers,
-        sampler_type=SamplerType.DISTRIBUTED,
+        # sampler_type=SamplerType.DISTRIBUTED,
         drop_last=False,
         shuffle=False,
         persistent_workers=False,
