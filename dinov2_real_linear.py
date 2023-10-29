@@ -85,9 +85,8 @@ def main():
     real_labels = RealLabelsImagenet(filenames, real_json=args.real_labels)
 
     for batch in tqdm(dataset):
-        inputs, labels = batch
+        inputs, _ = batch
         inputs = inputs['pixel_values'][0].to("cuda")
-        labels = labels.to("cuda")
 
         outputs = model(inputs)
         real_labels.add_result(outputs.logits)
