@@ -1,4 +1,4 @@
-from transformers import AutoImageProcessor, Dinov2Model
+from transformers import AutoImageProcessor
 import torch
 from torch.utils.data import DataLoader
 from datasets import load_dataset
@@ -28,8 +28,14 @@ def main():
     image_processor = AutoImageProcessor.from_pretrained(f"facebook/dinov2-{args.size}")
     train_dataset = get_dataloader(args.batch_size, image_processor, split="train")
 
-    #model = Dinov2Model.from_pretrained(f"facebook/dinov2-{args.size}")
-    model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+    if args.size == "base":
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitb14')
+    elif args.size == "small":
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+    elif args.size == "large":
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitl14')
+    elif args.size == "giant":
+        model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitg14')
 
     model.eval()
     model.to("cuda")
